@@ -13,8 +13,14 @@ jobs:
 
       - name: Install dependencies
         run: |
+          sudo apt-get update
+          sudo apt-get install -y openjdk-17-jdk
           python -m pip install --upgrade pip
           pip install Cython buildozer
+
+      - name: Accept Android SDK licenses
+        run: |
+          yes | sdkmanager --licenses || true
 
       - name: Build with Buildozer
         run: buildozer -v android debug
